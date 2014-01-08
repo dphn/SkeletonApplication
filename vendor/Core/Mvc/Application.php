@@ -24,7 +24,8 @@ class Application extends MvcApplication
         $di = new DiFactory();
         $di->setShared('config', $config);
 
-        $application = new Application($di);
+        $application = new Application();
+        $application->setDI($di);
 
         $eventsManager = $di->getShared('eventsManager');
         $application->setEventsManager($eventsManager);

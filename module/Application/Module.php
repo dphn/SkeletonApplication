@@ -21,7 +21,7 @@ class Module implements ModuleDefinitionInterface
         $dispatcher->setDefaultNamespace('Application\Controller\\');
 
         $view = $di->get('view');
-        $view->setViewsDir(__DIR__ . DS . 'views');
+        $view->setViewsDir(__DIR__ . str_replace('/', DS, '/views/'));
 
         $router = $di->getShared('router');
         $router->add('/:controller/:action', [
