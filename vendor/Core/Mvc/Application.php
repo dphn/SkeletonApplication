@@ -70,13 +70,14 @@ class Application extends MvcApplication
                     'className' => $moduleNamespace . '\Module',
                 ];
             }
-            $this->registerModules($modulesConfig, true);
-            if (empty($modulesConfig)) {
-                throw new DomainException(
-                    'Missing configuration of modules.'
-                );
-            }
         }
+        if (empty($modulesConfig)) {
+            throw new DomainException(
+                'Missing configuration of modules.'
+            );
+        }
+        $this->registerModules($modulesConfig, true);
+
         if (! isset($config['default_module'])) {
             throw new DomainException(
                 'Missing default module configuration.'

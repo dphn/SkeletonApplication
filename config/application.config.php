@@ -3,6 +3,7 @@
 return [
     'module_paths' => [
         './module',
+        './vendor',
     ],
     'modules' => [
         'Application',
