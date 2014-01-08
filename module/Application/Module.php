@@ -34,12 +34,5 @@ class Module implements ModuleDefinitionInterface
          * exceptions.
          */
         $view->setLayout('layout');
-
-        $router = $di->getShared('router');
-        $router->add('/:controller/:action', [
-            'module'     => 'Application',
-            'controller' => 'index',
-            'action'     => 'index',
-        ]);
     }
 }

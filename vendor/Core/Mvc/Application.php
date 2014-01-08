@@ -37,23 +37,15 @@ class Application extends MvcApplication
         $view = new View();
         $di->setShared('view', $view);
 
-        return $application->bootstrap();
-    }
-
-    /**
-     * @return Phalcon\Config
-     */
-    public function getConfig()
-    {
-        return $this->getDI()->get('config');
+        return $application->bootstrap($di);
     }
 
     /**
      * @return Core\Mvc\Application
      */
-    public function bootstrap()
+    public function bootstrap($di)
     {
-        $config = $this->getConfig();
+        $config = $di->get('config');
 
         if (isset($config['config_glob_paths'])) {
             $globPats = (array) $config['config_glob_paths'];
@@ -104,6 +96,27 @@ class Application extends MvcApplication
             );
         }
         $this->setDefaultModule($config['default_module']);
+
+        $router = $di->getShared('router');
+        if (isset($config['router']['routes'])) {
+            $routes = $config['router']['routes'];
+            foreach ($routes as $routeName => $routeOptions) {
+                if (! isset($routeOptions['route'])) {
+                    throw new DomainException(sprintf(
+                        "Missing option 'route' for the route '%s'.",
+                        $routeName
+                    ));
+                }
+                if (! isset($routeOptions['defaults']['module'])) {
+                    throw new DomainException(sprintf(
+                        "Missing default option 'module' for the route '%s'",
+                        $routeName
+                    ));
+                }
+                $router->add($routeOptions['route'], (array) $routeOptions['defaults'])
+                    ->setName($routeName);
+            }
+        }
 
         return $this;
     }
