@@ -54,6 +54,25 @@ class Application extends MvcApplication
     {
         $config = $this->getConfig();
 
+        if (isset($config['config_glob_paths'])) {
+            $globPats = (array) $config['config_glob_paths'];
+            foreach ($globPats as $path) {
+                $files = glob($path, GLOB_BRACE);
+                foreach ($files as $file) {
+                    $item = require $file;
+                    if ($item instanceof Config) {
+                        $config->merge($item);
+                        continue;
+                    }
+                    if (! is_array($item)) {
+                        continue;
+                    }
+                    $item = new Config($item);
+                    $config->merge($item);
+                }
+            }
+        }
+
         if (isset($config['module_paths'])) {
             $paths = [];
             foreach ($config['module_paths'] as $path) {
