@@ -6,7 +6,7 @@ use Core\Exception\DomainException;
 
 class RegisterModulesListener
 {
-    public function beforeHandle($event, $application)
+    public function loadModules($event, $application)
     {
         $di = $application->getDI();
         $config = $di->get('config');

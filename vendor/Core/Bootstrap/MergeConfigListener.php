@@ -6,7 +6,7 @@ use Phalcon\Config;
 
 class MergeConfigListener
 {
-    public function beforeHandle($event, $application)
+    public function mergeConfig($event, $application)
     {
         $di = $application->getDI();
         $config = $di->get('config');

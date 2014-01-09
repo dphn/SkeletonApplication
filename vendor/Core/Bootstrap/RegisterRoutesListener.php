@@ -6,7 +6,7 @@ use Core\Exception\DomainException;
 
 class RegisterRoutesListener
 {
-    public function beforeHandle($event, $application)
+    public function loadModules($event, $application)
     {
         $di = $application->getDI();
         $config = $di->get('config');
@@ -28,7 +28,7 @@ class RegisterRoutesListener
                     ));
                 }
                 $router->add($routeOptions['route'], (array) $routeOptions['defaults'])
-                ->setName($routeName);
+                    ->setName($routeName);
             }
         }
     }

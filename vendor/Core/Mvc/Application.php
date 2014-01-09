@@ -29,6 +29,7 @@ class Application extends MvcApplication
         '\Core\Bootstrap\RegisterModulesPathsListener',
         '\Core\Bootstrap\RegisterModulesListener',
         '\Core\Bootstrap\RegisterRoutesListener',
+        '\Core\Bootstrap\LoadModulesListener'
     ];
 
     /**
@@ -108,6 +109,9 @@ class Application extends MvcApplication
     {
         try {
             $eventsManager = $this->getEventsManager();
+
+            $eventsManager->fire('bootstrap:mergeConfig',  $this);
+            $eventsManager->fire('bootstrap:loadModules',  $this);
             $eventsManager->fire('bootstrap:beforeHandle', $this);
             return parent::handle($url);
         } catch (Exception $e) {
