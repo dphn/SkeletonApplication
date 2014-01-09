@@ -10,6 +10,8 @@ use Phalcon\Mvc\Application as MvcApplication,
     Phalcon\Http\Response,
     Phalcon\Config,
     //
+    Phalcon\Debug,
+    //
     Exception;
 
 class Application extends MvcApplication
@@ -90,16 +92,19 @@ class Application extends MvcApplication
      */
     public function handle($url = '')
     {
-        try {
-            $eventsManager = $this->getEventsManager();
+        $eventsManager = $this->getEventsManager();
+
+        if (Application::isDebugMode()) {
+            (new Debug())->listen();
             $eventsManager->fire('bootstrap:beforeHandle', $this);
             return parent::handle($url);
-        } catch (Exception $e) {
-            $response = new Response();
-            if (Application::isDebugMode()) {
-                $response->setContent($e);
+        } else {
+            try {
+                $eventsManager->fire('bootstrap:beforeHandle', $this);
+                return parent::handle($url);
+            } catch (Exception $e) {
+                return new Response();
             }
-            return $response;
         }
     }
 }
