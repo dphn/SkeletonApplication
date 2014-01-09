@@ -18,6 +18,9 @@ class LoadModulesListener
             if (method_exists($module, 'registerAutoloaders')) {
                 $module->registerAutoloaders();
             }
+            if (method_exists($module, 'onBootstrap')) {
+                $module->onBootstrap($application);
+            }
         }
     }
 }

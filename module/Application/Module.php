@@ -15,6 +15,13 @@ class Module implements ModuleDefinitionInterface
         $loader->register();
     }
 
+    public function onBootstrap($application)
+    {
+        $di = $application->getDI();
+        $eventsManager = $application->getEventsManager();
+        // your code here
+    }
+
     public function registerServices($di)
     {
         $dispatcher = $di->get('dispatcher');
