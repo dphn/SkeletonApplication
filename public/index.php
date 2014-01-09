@@ -10,6 +10,8 @@ if (! extension_loaded('phalcon')) {
     exit('Phalcon extension is not installed. See http://phalconphp.com/en/download');
 }
 
+// \Phalcon\Version::get();
+
 chdir(dirname(__DIR__));
 require 'init_autoloader.php';
 

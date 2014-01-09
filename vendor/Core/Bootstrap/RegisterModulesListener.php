@@ -15,7 +15,7 @@ class RegisterModulesListener
         if (isset($config['modules'])) {
             foreach ($config['modules'] as $moduleNamespace) {
                 $modulesConfig[$moduleNamespace] = [
-                'className' => $moduleNamespace . '\Module',
+                    'className' => $moduleNamespace . '\Module',
                 ];
             }
         }

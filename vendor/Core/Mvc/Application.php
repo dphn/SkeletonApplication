@@ -7,10 +7,15 @@ use Phalcon\Mvc\Application as MvcApplication,
     Phalcon\Mvc\View,
     //
     Phalcon\DI\FactoryDefault as DiFactory,
-    Phalcon\Config;
+    Phalcon\Http\Response,
+    Phalcon\Config,
+    //
+    Exception;
 
 class Application extends MvcApplication
 {
+    protected static $debugMode = true;
+
     /**
      * @var array
      */
@@ -20,6 +25,23 @@ class Application extends MvcApplication
         '\Core\Bootstrap\RegisterModulesListener',
         '\Core\Bootstrap\RegisterRoutesListener',
     ];
+
+    /**
+     * @param boolean $flag
+     * @return void
+     */
+    public static function setDebugMode($flag = true)
+    {
+        static::$debugMode = (bool) $flag;
+    }
+
+    /**
+     * @return boolean
+     */
+    public static function isDebugMode()
+    {
+        return static::$debugMode;
+    }
 
     /**
      * @param array $configuration
@@ -68,9 +90,16 @@ class Application extends MvcApplication
      */
     public function handle($url = '')
     {
-        $eventsManager = $this->getEventsManager();
-        $eventsManager->fire('bootstrap:beforeHandle', $this);
-
-        return parent::handle($url);
+        try {
+            $eventsManager = $this->getEventsManager();
+            $eventsManager->fire('bootstrap:beforeHandle', $this);
+            return parent::handle($url);
+        } catch (Exception $e) {
+            $response = new Response();
+            if (Application::isDebugMode()) {
+                $response->setContent($e);
+            }
+            return $response;
+        }
     }
 }
