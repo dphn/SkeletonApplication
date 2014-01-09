@@ -1,0 +1,12 @@
+{
+    "name": "dphn/skeleton-application",
+    "description": "Skeleton Application for Phalcon framework",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "framework",
+        "phalcon"
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
