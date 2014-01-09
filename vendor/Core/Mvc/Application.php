@@ -93,18 +93,14 @@ class Application extends MvcApplication
     public function handle($url = '')
     {
         $eventsManager = $this->getEventsManager();
-
-        if (Application::isDebugMode()) {
-            (new Debug())->listen();
+        try {
             $eventsManager->fire('bootstrap:beforeHandle', $this);
             return parent::handle($url);
-        } else {
-            try {
-                $eventsManager->fire('bootstrap:beforeHandle', $this);
-                return parent::handle($url);
-            } catch (Exception $e) {
-                return new Response();
+        } catch (Exception $e) {
+            if (Application::isDebugMode()) {
+                (new Debug())->onUncaughtException($e);
             }
+            return new Response();
         }
     }
 }
