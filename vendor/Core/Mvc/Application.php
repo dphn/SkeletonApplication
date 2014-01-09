@@ -16,7 +16,10 @@ use Phalcon\Mvc\Application as MvcApplication,
 
 class Application extends MvcApplication
 {
-    protected static $debugMode = true;
+    /**
+     * @var boolean
+     */
+    protected static $debugMode = false;
 
     /**
      * @var array
@@ -34,6 +37,9 @@ class Application extends MvcApplication
      */
     public static function setDebugMode($flag = true)
     {
+        $reportingLevel = $flag ? E_ALL | E_STRICT : 0;
+        error_reporting($reportingLevel);
+
         static::$debugMode = (bool) $flag;
     }
 
@@ -51,6 +57,14 @@ class Application extends MvcApplication
      */
     public static function init($configuration = [])
     {
+        static $application;
+
+        if ($application instanceof Application) {
+            return $application;
+        }
+
+        Application::setDebugMode(Application::isDebugMode());
+
         $config = new Config($configuration);
         $di = new DiFactory();
         $di->setShared('config', $config);
@@ -92,8 +106,8 @@ class Application extends MvcApplication
      */
     public function handle($url = '')
     {
-        $eventsManager = $this->getEventsManager();
         try {
+            $eventsManager = $this->getEventsManager();
             $eventsManager->fire('bootstrap:beforeHandle', $this);
             return parent::handle($url);
         } catch (Exception $e) {

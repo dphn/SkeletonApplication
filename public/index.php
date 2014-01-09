@@ -20,5 +20,9 @@ if (php_sapi_name() === 'cli-server' && is_file(__DIR__ . parse_url($_SERVER['RE
     return false;
 }
 
-$application = Core\Mvc\Application::init(require './config/application.config.php');
+use Core\Mvc\Application;
+
+Application::setDebugMode(true);
+
+$application = Application::init(require './config/application.config.php');
 echo $application->handle()->getContent();
