@@ -6,7 +6,7 @@ use Core\Exception\DomainException;
 
 class RegisterRoutesListener
 {
-    public function loadModules($event, $application)
+    public function afterMergeConfig($event, $application)
     {
         $di = $application->getDI();
         $config = $di->get('config');

@@ -25,11 +25,20 @@ class Application extends MvcApplication
      * @var array
      */
     protected $defaultBootstrapListeners = [
-        '\Core\Bootstrap\MergeConfigListener',
+        // bootstrap:init
         '\Core\Bootstrap\RegisterModulesPathsListener',
         '\Core\Bootstrap\RegisterModulesListener',
+        '\Core\Bootstrap\LoadModulesListener',
+
+        // bootstrap:mergeConfig @todo Stop if the configuration is cached
+        '\Core\Bootstrap\MergeGlobConfigListener',
+        '\Core\Bootstrap\MergeModulesConfigListener',
+
+        // bootstrap:afterMergeConfig
         '\Core\Bootstrap\RegisterRoutesListener',
-        '\Core\Bootstrap\LoadModulesListener'
+
+        // bootstrap:bootstrapModules
+        '\Core\Bootstrap\BootstrapModulesListener',
     ];
 
     /**
@@ -109,9 +118,10 @@ class Application extends MvcApplication
     {
         try {
             $eventsManager = $this->getEventsManager();
-
-            $eventsManager->fire('bootstrap:mergeConfig',  $this);
-            $eventsManager->fire('bootstrap:loadModules',  $this);
+            $eventsManager->fire('bootstrap:init', $this);
+            $eventsManager->fire('bootstrap:mergeConfig', $this);
+            $eventsManager->fire('bootstrap:afterMergeConfig', $this);
+            $eventsManager->fire('bootstrap:bootstrapModules', $this);
             $eventsManager->fire('bootstrap:beforeHandle', $this);
             return parent::handle($url);
         } catch (Exception $e) {

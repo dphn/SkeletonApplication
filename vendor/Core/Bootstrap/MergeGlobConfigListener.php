@@ -4,9 +4,9 @@ namespace Core\Bootstrap;
 
 use Phalcon\Config;
 
-class MergeConfigListener
+class MergeGlobConfigListener
 {
-    public function mergeConfig($event, $application)
+    public function mergeGlobConfig($event, $application)
     {
         $di = $application->getDI();
         $config = $di->get('config');

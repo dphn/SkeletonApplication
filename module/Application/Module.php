@@ -15,6 +15,11 @@ class Module implements ModuleDefinitionInterface
         $loader->register();
     }
 
+    public function getConfig()
+    {
+        return [];
+    }
+
     public function onBootstrap($application)
     {
         $di = $application->getDI();

@@ -2,25 +2,19 @@
 
 namespace Core\Bootstrap;
 
-use Core\Exception\DomainException;
-
 class LoadModulesListener
 {
-    public function loadModules($event, $application)
+    public function init($event, $application)
     {
-        $di = $application->getDI();
-        $config = $di->get('config');
-
         $modules = $application->getModules();
-        foreach ($modules as $moduleOptions) {
+        foreach ($modules as &$moduleOptions) {
             $class = $moduleOptions['className'];
             $module = new $class();
+            $moduleOptions['object'] = $module;
             if (method_exists($module, 'registerAutoloaders')) {
                 $module->registerAutoloaders();
             }
-            if (method_exists($module, 'onBootstrap')) {
-                $module->onBootstrap($application);
-            }
         }
+        $application->registerModules($modules, true);
     }
 }

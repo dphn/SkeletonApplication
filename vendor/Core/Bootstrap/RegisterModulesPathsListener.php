@@ -6,7 +6,7 @@ use Phalcon\Loader;
 
 class RegisterModulesPathsListener
 {
-    public function loadModules($event, $application)
+    public function init($event, $application)
     {
         $di = $application->getDI();
         $config = $di->get('config');
