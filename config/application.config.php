@@ -8,7 +8,6 @@ return [
     'modules' => [
         'Application',
     ],
-    'default_module' => 'Application',
     'config_glob_paths' => [
         'config/autoload/{,*.}{global,local}.php',
     ],

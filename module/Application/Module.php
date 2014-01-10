@@ -17,7 +17,33 @@ class Module implements ModuleDefinitionInterface
 
     public function getConfig()
     {
-        return [];
+        return [
+            'router' => [
+                'routes' => [
+                    /* The route '/' is default route.
+                     * If the default route is not specified, the framework
+                     * can not determine the route, respectively, module,
+                     * controller and action.
+                     */
+                    '/' => [
+                        'route' => '/',
+                        'defaults' => [
+                            'module' => 'Application',
+                            'controller' => 'index',
+                            'action' => 'index',
+                        ],
+                    ],
+                    'home' => [
+                        'route' => '/:controller/:action',
+                        'defaults' => [
+                            'module' => 'Application',
+                            'controller' => 'index',
+                            'action' => 'index',
+                        ],
+                    ],
+                ],
+            ],
+        ];
     }
 
     public function onBootstrap($application)

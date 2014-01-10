@@ -25,12 +25,5 @@ class RegisterModulesListener
             );
         }
         $application->registerModules($modulesConfig, true);
-
-        if (! isset($config['default_module'])) {
-            throw new DomainException(
-                'Missing default module configuration.'
-            );
-        }
-        $application->setDefaultModule($config['default_module']);
     }
 }
