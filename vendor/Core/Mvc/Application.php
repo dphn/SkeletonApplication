@@ -26,19 +26,20 @@ class Application extends MvcApplication
      */
     protected $defaultBootstrapListeners = [
         // bootstrap:init
-        '\Core\Bootstrap\RegisterModulesPathsListener',
-        '\Core\Bootstrap\RegisterModulesListener',
-        '\Core\Bootstrap\LoadModulesListener',
+        'Core\Bootstrap\RegisterModulesPathsListener',
+        'Core\Bootstrap\RegisterModulesListener',
+        'Core\Bootstrap\LoadModulesListener',
 
         // bootstrap:mergeConfig @todo Stop if the configuration is cached
-        '\Core\Bootstrap\MergeGlobConfigListener',
-        '\Core\Bootstrap\MergeModulesConfigListener',
+        'Core\Bootstrap\MergeGlobConfigListener',
+        'Core\Bootstrap\MergeModulesConfigListener',
 
         // bootstrap:afterMergeConfig
-        '\Core\Bootstrap\RegisterRoutesListener',
+        'Core\Bootstrap\RegisterDIListener',
+        'Core\Bootstrap\RegisterRoutesListener',
 
         // bootstrap:bootstrapModules
-        '\Core\Bootstrap\BootstrapModulesListener',
+        'Core\Bootstrap\BootstrapModulesListener',
     ];
 
     /**
