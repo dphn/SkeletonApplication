@@ -29,6 +29,7 @@ class Module implements ModuleDefinitionInterface
                         'route' => '/',
                         'defaults' => [
                             'module' => 'Application',
+                            'namespace' => 'Application\Controller',
                             'controller' => 'index',
                             'action' => 'index',
                         ],
@@ -37,6 +38,7 @@ class Module implements ModuleDefinitionInterface
                         'route' => '/:controller/:action',
                         'defaults' => [
                             'module' => 'Application',
+                            'namespace' => 'Application\Controller',
                             'controller' => 'index',
                             'action' => 'index',
                         ],
@@ -55,9 +57,6 @@ class Module implements ModuleDefinitionInterface
 
     public function registerServices($di)
     {
-        $dispatcher = $di->get('dispatcher');
-        $dispatcher->setDefaultNamespace('Application\Controller\\');
-
         $view = $di->getShared('view');
 
         // It always ends with a slash.

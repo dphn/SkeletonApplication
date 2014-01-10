@@ -27,6 +27,12 @@ class RegisterRoutesListener
                         $routeName
                     ));
                 }
+                if (! isset($routeOptions['defaults']['namespace'])) {
+                    throw new DomainException(sprintf(
+                        "Missing default option 'namespace' for the route '%s'",
+                        $routeName
+                    ));
+                }
                 $router->add($routeOptions['route'], (array) $routeOptions['defaults'])
                     ->setName($routeName);
             }
