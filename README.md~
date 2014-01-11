@@ -79,8 +79,6 @@ return [
                     'action'     => 'index',
                 ],
             ],
-            'forum' => [ ... ],
-            ...
         ],
     ],
 ];
