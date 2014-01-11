@@ -11,4 +11,14 @@ return [
     'config_glob_paths' => [
         'config/autoload/{,*.}{global,local}.php',
     ],
+    'config_cache' => [
+        'enabled' => false, // enable or disable configuration caching
+        'lifetime' => 86400, // 24 hours
+        'storage' => [
+            'class' => 'Phalcon\Cache\Backend\File',
+            'options' => [
+                'cacheDir' => './data/cache',
+            ],
+        ],
+    ],
 ];

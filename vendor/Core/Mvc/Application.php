@@ -30,7 +30,8 @@ class Application extends MvcApplication
         'Core\Bootstrap\RegisterModulesListener',
         'Core\Bootstrap\LoadModulesListener',
 
-        // bootstrap:mergeConfig @todo Stop if the configuration is cached
+        // bootstrap:mergeConfig
+        'Core\Bootstrap\ConfigCacheListener',
         'Core\Bootstrap\MergeGlobConfigListener',
         'Core\Bootstrap\MergeModulesConfigListener',
 
