@@ -36,6 +36,11 @@ class RegisterRoutesListener
                 $router->add($routeOptions['route'], (array) $routeOptions['defaults'])
                     ->setName($routeName);
             }
+            if (isset($config['router']['not_found_route'])) {
+                $router->notFound(
+                    (array) $config['router']['not_found_route']
+                );
+            }
         }
     }
 }

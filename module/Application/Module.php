@@ -19,6 +19,12 @@ class Module implements ModuleDefinitionInterface
     {
         return [
             'router' => [
+                'not_found_route' => [
+                    'module' => 'Application',
+                    'namespace' => 'Application\Controller',
+                    'controller' => 'index',
+                    'action' => 'notFound',
+                ],
                 'routes' => [
                     /* The route '/' is default route.
                      * If the default route is not specified, the framework

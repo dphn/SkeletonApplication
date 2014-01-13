@@ -10,4 +10,9 @@ class IndexController extends Controller
     {
         $this->view->setVar('message', 'Hello, World!');
     }
+
+    public function notFoundAction()
+    {
+
+    }
 }
