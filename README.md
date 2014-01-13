@@ -112,6 +112,31 @@ return [
 Module class may provide a method `getConfig()`.
 This configuration will have a higher priority than the configuration files.
 
+* Default view strategy [COMPLETE]
+
+Using the method `getConfig()` of `Module` class, you can configure the view strategy for your module as follows:
+```
+public function getConfig()
+{
+    return [
+        'view_strategy' => [
+            'application' => [ // module name in lowercase
+                'view_dir'       => __DIR__ . str_replace('/', DS, '/view/templates/'),
+                'layouts_dir'    => str_replace('/', DS, '../layouts/'),
+                'default_layout' => 'layout',
+            ],
+        ],
+        ...
+    ];
+}
+```
+You can also specify your own view strategy through the configuration as follows:
+```
+return [
+    'view_strategy_class' => 'MyModule\MyViewStrategy',
+];
+```
+
 * Module feature onBootstrap() [COMPLETE]
 
 Module class may provide a method `onBootstrap()`.
@@ -124,5 +149,3 @@ Regardless which module is executed, it calls the method onBootstrap () of *each
 Thus, the control of access rights module will receive their configuration and attached a `Guard Listener` for events `afterRouting` or `beforeDispatch`.
 This listener will block access to the administrative part of the Forum for unauthorized users.
 If you want to add a Blog module - will simply need to specify the access configuration.
-
-

@@ -30,6 +30,9 @@ class Application extends MvcApplication
         'Core\Bootstrap\RegisterModulesListener',
         'Core\Bootstrap\LoadModulesListener',
 
+        // bootstrap:beforeMergeConfig
+        'Core\Bootstrap\RegisterViewStrategyListener',
+
         // bootstrap:mergeConfig
         'Core\Bootstrap\ConfigCacheListener',
         'Core\Bootstrap\MergeGlobConfigListener',
@@ -121,6 +124,7 @@ class Application extends MvcApplication
         try {
             $eventsManager = $this->getEventsManager();
             $eventsManager->fire('bootstrap:init', $this);
+            $eventsManager->fire('bootstrap:beforeMergeConfig', $this);
             $eventsManager->fire('bootstrap:mergeConfig', $this);
             $eventsManager->fire('bootstrap:afterMergeConfig', $this);
             $eventsManager->fire('bootstrap:bootstrapModules', $this);

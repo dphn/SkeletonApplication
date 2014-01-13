@@ -21,4 +21,5 @@ return [
             ],
         ],
     ],
+    'view_strategy_class' => 'Core\Mvc\DefaultViewStrategy',
 ];
