@@ -8,7 +8,12 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
-        $this->view->setVar('message', 'Hello, World!');
+        $this->dispatcher->forward([
+            "namespace"   => "Test\Controller",
+            "controller" => "index",
+            "action" => "index",
+        ]);
+        //$this->view->setVar('message', 'Hello, World!');
     }
 
     public function notFoundAction()
