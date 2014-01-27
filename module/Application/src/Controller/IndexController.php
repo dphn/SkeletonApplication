@@ -9,7 +9,7 @@ class IndexController extends Controller
     public function indexAction()
     {
         $this->dispatcher->forward([
-            "namespace"   => "Test\Controller",
+            "namespace"   => "ExampleForward\Controller",
             "controller" => "index",
             "action" => "index",
         ]);

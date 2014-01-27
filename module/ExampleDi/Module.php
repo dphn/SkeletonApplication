@@ -1,6 +1,6 @@
 <?php
 
-namespace Test;
+namespace ExampleDi;
 
 use Phalcon\Mvc\ModuleDefinitionInterface;
 
@@ -10,7 +10,7 @@ class Module implements ModuleDefinitionInterface
     {
         $loader = new \Phalcon\Loader();
         $loader->registerNamespaces([
-            'Test' => __DIR__ . DS . 'src',
+            'ExampleDi' => __DIR__ . DS . 'src',
         ]);
         $loader->register();
     }
@@ -18,12 +18,8 @@ class Module implements ModuleDefinitionInterface
     public function getConfig()
     {
         return [
-            'view_strategy' => [
-                'test' => [ // module name in lowercase
-                    'view_dir'       => __DIR__ . str_replace('/', DS, '/view/templates/'),
-                    'layouts_dir'    => str_replace('/', DS, '../layouts/'),
-                    'default_layout' => 'layout',
-                ],
+            'di' => [
+                'ExampleDi.Service.ExampleService' => 'ExampleDi\Service\ExampleService',
             ],
         ];
     }

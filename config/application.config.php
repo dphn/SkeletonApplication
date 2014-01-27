@@ -7,7 +7,8 @@ return [
     ],
     'modules' => [
         'Application',
-        'Test',
+        'ExampleForward',
+        'ExampleDi',
     ],
     'config_glob_paths' => [
         'config/autoload/{,*.}{global,local}.php',
